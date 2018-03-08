@@ -68,8 +68,6 @@ class Spyder():
             ip_info_list.append([IP,PORT,SITE,RespTime,CheckTime])
             # print([IP,PORT,SITE,RespTime,CheckTime])
 
-            # print(type(RespTime))
-            # print(float(str(RespTime)))
             if RespTime is not None and float(RespTime) <= float(filtertime):
                 fast_ip.append(IP)
         # fast_ip = [str(i[0]) + str(i[1]) for i in ip_info_list if float(i[3]) <= filtertime]
@@ -108,18 +106,6 @@ class Spyder():
 
 
 if __name__ == '__main__':
-    # url = 'https://omim.org/' # Normal
-    # url = 'https://play.google.com/log?format=json&authuser=0' # Timeout 
-    # url = 'http://www.python-requests.org/en/master/user/advanced/#advanced'
-    # url = 'https://www.kuaidaili.com/free/'
-    # url = "https://www.kuaidaili.com/free/inha/2"
     spyder = Spyder()
-    # html = spyder.download_html(url)
-    # print(html)
-    # with open("proxies.html",'w',encoding='utf-8') as odata:
-    #     odata.write(html)
     proxies_ips = spyder.download_proxy(page_num=3) # print the fast ip proxies
     print(proxies_ips)
-    ip = random.choice(proxies_ips)
-    ip_proxy = {'http':'http://' + ip}
-    print(ip_proxy)

@@ -6,10 +6,10 @@ import re
 import random
 import threading
 import time
-import crawler_test # my proxy
+import proxy_for_crawler # my proxy
 sema = threading.BoundedSemaphore(5)
 lock = threading.Lock()
-spyder = crawler_test.Spyder()
+spyder = proxy_for_crawler.Spyder()
 proxies_list = spyder.download_proxy(page_num=3)
 
 
@@ -35,7 +35,7 @@ def get_description(html):
     return(tag)
 
 def re_desc(tag):
-    re_str = re.search('content=[\"\']\[([\s\S]*?)\][\"\']',str(tag[0]))
+    re_str = re.search('content=[\"\']\[([\s\S]*?)\][\"\']',str(tag[0]))#有的注释信息有多行，多行匹配正则
     if re_str != None:
         desc = re.sub('\n','',re_str.group(1))
     else:
@@ -67,7 +67,7 @@ def threading_crawler(efo):
     tag = get_description(html)
     desc = re_desc(tag)
     line = efo + [desc]
-    with lock:
+    with lock: #添加全局锁防止多线程同时操作同一个文件出现问题
         with open('efo_annotation/efo_annotation','a',encoding='utf-8')as odata:
             odata.write('\t'.join(line) + '\n')
         print('finished:{}'.format(efo))
@@ -82,9 +82,7 @@ def main():
 
 
 if __name__ == '__main__':
-    # efo_id = 'EFO_0003033'
-    # efo_id = 'EFO_1001009'
-
+    main()
     # url = 'https://www.ebi.ac.uk/ols/ontologies/EFO/terms?iri=http%3A%2F%2Fwww.ebi.ac.uk%2Fefo%2FEFO_1000954'
     # url = 'https://www.ebi.ac.uk/ols/ontologies/EFO/terms?iri=http%3A%2F%2Fwww.ebi.ac.uk%2Fefo%2FEFO_1001255'
     # url = "https://www.ebi.ac.uk/ols/ontologies/EFO/terms?iri=http%3A%2F%2Fwww.ebi.ac.uk%2Fefo%2F" + efo_id
@@ -93,7 +91,7 @@ if __name__ == '__main__':
     #     odata.write(html)
     # tag = get_description(html)
     # desc = re_desc(tag)
-    # print(desc)
-    main()
+    # print(desc)   # efo_id = 'EFO_0003033'
+    # efo_id = 'EFO_1001009'
     # all_efos = make_urls()
     # print(len(all_efos))
