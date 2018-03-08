@@ -32,4 +32,4 @@ api的脚本直接用于自己的脚本。即使你想要爬取的网站并不�
     * [efo_annotation](https://github.com/KingCM/crawling-python/blob/master/efo_annotation)  爬取的疾病描述信息
     * [efo_translation](https://github.com/KingCM/crawling-python/blob/master/efo_translation)  翻译结果文件
 
-        欢迎你对该代码的进一步改进和建议
+        欢迎你提交该代码的进一步改进和建议
